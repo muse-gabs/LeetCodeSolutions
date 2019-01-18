@@ -1,0 +1,18 @@
+class Solution {
+    public String toLowerCase(String str) {
+        //ASCII value of alphabets: A - Z = 65 to 90
+        //ASCII value of lowercase: a - z = 97 to 122
+        String lowercasedWord = "";
+        for(int i = 0; i < str.length(); i++) {
+            int value = (int) str.charAt(i);
+            if (value >= 65 && value <= 90) {
+                char tolower = (char) (value + 32);
+                lowercasedWord = lowercasedWord + tolower ; 
+            } else {
+                lowercasedWord = lowercasedWord + str.charAt(i);
+            }
+        }
+        
+        return lowercasedWord;
+    }
+}
