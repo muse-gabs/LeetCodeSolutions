@@ -1,0 +1,74 @@
+/*
+Given a string S, return the "reversed" string where all characters that are not a letter stay in the same place, and all letters reverse their positions.
+
+ 
+
+Example 1:
+
+Input: "ab-cd"
+Output: "dc-ba"
+Example 2:
+
+Input: "a-bC-dEf-ghIj"
+Output: "j-Ih-gfE-dCba"
+Example 3:
+
+Input: "Test1ng-Leet=code-Q!"
+Output: "Qedo1ct-eeLg=ntse-T!"
+ 
+
+Note:
+
+S.length <= 100
+33 <= S[i].ASCIIcode <= 122 
+S doesn't contain \ or "
+
+*/
+
+class Solution {
+    public String reverseOnlyLetters(String S) {
+        //Uppercase A - Z is 65 to 90
+        //Lowercase a - z is 97 - 122
+        
+        //Stack takes the alphabet in so that we can get it out in reverse order
+        Stack<Character> alpha = new Stack<Character>();
+        
+        //Queue takes the other miscellaneous symbols in so we can get them in the same order
+        Queue<Character> misc = new LinkedList<Character>();
+        
+        //Keeps track of the number of letters that need to go in the String before the symbol
+        ArrayList<Integer> nums = new ArrayList<Integer>();
+        int count = 0;
+        
+        //Sorts the string
+        for (int i = 0; i < S.length(); i++) {
+            if(S.charAt(i) >= 'a' && S.charAt(i) <= 'z' ||  S.charAt(i) >= 'A' && S.charAt(i) <= 'Z') {
+                alpha.push(S.charAt(i));
+                count++;
+            } else {
+                nums.add(count);
+                count = 0;
+                misc.add(S.charAt(i));
+            }
+        }
+        nums.add(count);
+        
+        //creates an empty String to place our new result
+        String result = "";
+        
+        //takes the alphabet off the stack based on the number stored in our ArrayList
+        //then places the symbol
+        for(int i = 0; i < nums.size() - 1; i++) {
+            for(int j = 1; j <= nums.get(i); j++) {
+                result += alpha.pop().toString();
+            }
+            result += misc.poll().toString();
+        }
+        
+        //deals with the remaining letters in the stack
+        while(!alpha.empty()) {
+            result += alpha.pop().toString();
+        }
+        return result;
+    }
+}
