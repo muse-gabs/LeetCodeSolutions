@@ -1,0 +1,66 @@
+/* 
+
+Invert a binary tree.
+
+Example:
+
+Input:
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+Output:
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ 
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        if (root != null) {
+            swap(root);
+        }
+        return root;
+    }
+    
+    private void swap(TreeNode node) {
+        //when both right and left are filled
+        if(node.left != null && node.right != null) {
+            TreeNode holder = node.left;
+            node.left = node.right;
+            node.right = holder;
+            swap(node.left);
+            swap(node.right);
+        //when right is filled and left is empty
+        } else if (node.left == null && node.right != null) {
+            node.left = node.right;
+            node.right = null;
+            swap(node.left);
+        //when left is filled and right is empty
+        } else if (node.right == null && node.left != null) {
+            node.right = node.left;
+            node.left = null;
+            swap(node.right);
+        //both right and left are null so we return without doing anything
+        } else {
+            return;
+        }
+    }
+}
