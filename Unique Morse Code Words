@@ -1,0 +1,57 @@
+/* 
+
+International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes, as follows: "a" maps to ".-", "b" maps to "-...", "c" maps to "-.-.", and so on.
+
+For convenience, the full table for the 26 letters of the English alphabet is given below:
+
+[".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]
+Now, given a list of words, each word can be written as a concatenation of the Morse code of each letter. For example, "cba" can be written as "-.-..--...", (which is the concatenation "-.-." + "-..." + ".-"). We'll call such a concatenation, the transformation of a word.
+
+Return the number of different transformations among all words we have.
+
+Example:
+Input: words = ["gin", "zen", "gig", "msg"]
+Output: 2
+Explanation: 
+The transformation of each word is:
+"gin" -> "--...-."
+"zen" -> "--...-."
+"gig" -> "--...--."
+"msg" -> "--...--."
+
+There are 2 different transformations, "--...-." and "--...--.".
+Note:
+
+The length of words will be at most 100.
+Each words[i] will have length in range [1, 12].
+words[i] will only consist of lowercase letters.
+
+*/
+
+
+class Solution {
+    public int uniqueMorseRepresentations(String[] words) {
+        //assigns number indexes of alphabet to morse equivalents
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        String[] morse = new String[]{".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        
+        //this list contains the morse code version of the words in the string array passed in
+        ArrayList<String> reps = new ArrayList<String>();
+        
+        //converts them word by word to morse code
+        for(String word : words) {
+            String morserep = "";
+            for (int i = 0; i < word.length(); i++) {
+                morserep += morse[alphabet.indexOf(word.charAt(i))];
+            }
+            
+            //only adds the morsecode version to our storage array
+            if (!reps.contains(morserep)) {
+                reps.add(morserep);
+            }
+        }
+        
+        //gets size of morsecode storage array
+        return reps.size();
+    }
+}
