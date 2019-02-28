@@ -1,0 +1,55 @@
+/* 
+
+Runtime: 2 ms, faster than 100.00% of Java online submissions for Remove Linked List Elements.
+Memory Usage: 41.2 MB, less than 7.30% of Java online submissions for Remove Linked List Elements.
+
+Remove all elements from a linked list of integers that have value val.
+
+Example:
+
+Input:  1->2->6->3->4->5->6, val = 6
+Output: 1->2->3->4->5
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        // check whether the ListNode passed is null
+        if (head == null) {
+            return null;
+        }
+        
+        // checks whether the head is the value passed in
+        while (head.val == val) {
+            // returns null if there are no more values in the list
+            if (head.next == null) {
+                return null;
+            // otherwise increments to the next number in the list until the head is not the given value
+            } else {
+                head = head.next;
+            }
+        }
+        // increments down the list until the node after the pointer is null
+        ListNode first = head;
+        while (first.next != null) {
+            // checks the value of the node after the pointer
+            if (first.next.val == val) {
+                // skips over that node if it is equal to the value
+                first.next = first.next.next;
+            } else {
+                // otherwise increments down the list as normal
+                first = first.next;
+            }
+        }
+        return head;
+        
+    }
+}
