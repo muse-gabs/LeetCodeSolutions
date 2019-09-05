@@ -1,0 +1,8 @@
+# Write your MySQL query statement below
+SELECT Emp.Name AS 'Employee'
+       FROM 
+          Employee AS Emp,
+          Employee As Man
+       WHERE
+          Emp.ManagerId = Man.Id
+          AND Emp.Salary > Man.Salary;
